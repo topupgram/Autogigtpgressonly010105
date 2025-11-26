@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Form Pembelian Robux - VILOG</title>
+<title>Form Pembelian Robux - GAMEPASS</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{--accent:#4a6fa1;--muted:#6b7280}
@@ -17,7 +17,8 @@
   label { font-size:12px; font-weight:500; display:block; margin-bottom:6px; color:#444; }
 
   input[type="text"],
-  input[type="number"] {
+  input[type="number"],
+  select {
     width:100%;
     padding:8px;
     border:1px solid #ccc;
@@ -41,6 +42,8 @@
 
   button { width:100%; padding:10px; background:var(--accent); border:none; border-radius:6px; color:white; font-size:13px; font-weight:600; cursor:pointer; transition:.15s; }
   button:hover { background:#3a5f8a; }
+
+  .hidden { display:none; }
 
   /* Payment Modal */
   .modal-backdrop {
@@ -119,6 +122,46 @@
         <label for="dsp">Display Name Roblox *</label>
         <input type="text" id="dsp" name="dsp" placeholder="Display Name Roblox" required>
       </div>
+
+      <!-- MAPS ROBLOX -->
+      <div class="form-group">
+        <label for="map">Maps Roblox *</label>
+        <select id="map" name="map" required>
+          <option value="">-- Pilih Maps --</option>
+          <option value="0">0. Game lain (ketik manual)</option>
+          <option value="99 Nights in the Forest">1. 99 Nights in the Forest</option>
+          <option value="Adopt Me!">2. Adopt Me!</option>
+          <option value="Baddies">3. Baddies</option>
+          <option value="BedWars">4. BedWars</option>
+          <option value="Berry Avenue">5. Berry Avenue</option>
+          <option value="Blade Ball">6. Blade Ball</option>
+          <option value="Blox Fruit">7. Blox Fruit</option>
+          <option value="Bloxburg">8. Bloxburg</option>
+          <option value="Blue Lock Rivals">9. Blue Lock Rivals</option>
+          <option value="Brookhaven">10. Brookhaven</option>
+          <option value="Build A Zoo">11. Build A Zoo</option>
+          <option value="Car Driving Indonesia">12. Car Driving Indonesia</option>
+          <option value="Climb and Jump Tower">13. Climb and Jump Tower</option>
+          <option value="Combat Warriors">14. Combat Warriors</option>
+          <option value="Cursed Arena">15. Cursed Arena</option>
+          <option value="Dead Rails">16. Dead Rails</option>
+          <option value="Dress to Impress">17. Dress to Impress</option>
+          <option value="Ekspedition Antartica">18. Ekspedition Antartica</option>
+          <option value="Fish It">19. Fish It</option>
+          <option value="Fisch">20. Fisch</option>
+          <option value="Grow a Garden">21. Grow a Garden</option>
+          <option value="Salon de Fiestas">22. Salon de Fiestas</option>
+          <option value="Survive The Killer">23. Survive The Killer</option>
+        </select>
+        <div class="notes">Pilih map tempat Robux akan dipakai. Pilih "Game lain" jika tidak ada di daftar.</div>
+      </div>
+
+      <div class="form-group hidden" id="mapCustomGroup">
+        <label for="mapCustom">Nama Game / Map *</label>
+        <input type="text" id="mapCustom" name="mapCustom" placeholder="Ketik nama game atau map">
+        <div class="notes">Isi jika map tidak ada di daftar.</div>
+      </div>
+      <!-- END MAPS -->
 
       <div class="form-group">
         <label for="itm">Item / Order yang Dibeli *</label>
@@ -201,6 +244,10 @@ document.addEventListener('DOMContentLoaded', function(){
   const rbxInput = document.getElementById('rbx');
   const hargaInput = document.getElementById('hg');
 
+  const mapSelect = document.getElementById('map');
+  const mapCustomGroup = document.getElementById('mapCustomGroup');
+  const mapCustomInput = document.getElementById('mapCustom');
+
   function updateHarga(){
     const jumlah = Number(rbxInput.value) || 0;
     if(!jumlah || jumlah < 0){
@@ -213,9 +260,22 @@ document.addEventListener('DOMContentLoaded', function(){
 
   rbxInput.addEventListener('input', updateHarga);
 
+  // handle maps dropdown -> game lain -> ketik manual
+  mapSelect.addEventListener('change', ()=>{
+    if(mapSelect.value === '0'){
+      mapCustomGroup.classList.remove('hidden');
+      mapCustomInput.required = true;
+      mapCustomInput.focus();
+    } else {
+      mapCustomGroup.classList.add('hidden');
+      mapCustomInput.required = false;
+      mapCustomInput.value = '';
+    }
+  });
+
   document.getElementById('btnTg').addEventListener('click', ()=>{
     const f = document.getElementById('frm');
-    const req = f.querySelectorAll('input[required], textarea[required]');
+    const req = f.querySelectorAll('input[required], textarea[required], select[required]');
     for(const i of req){
       if(!i.value.trim()){
         showValidationPopupCenter('Harap isi semua kolom yang wajib diisi!');
@@ -230,6 +290,20 @@ document.addEventListener('DOMContentLoaded', function(){
     const rbx = document.getElementById('rbx').value.trim();
     const hg  = document.getElementById('hg').value.trim();
 
+    // map handling
+    let mapText = '';
+    if(mapSelect.value === '0'){
+      mapText = mapCustomInput.value.trim();
+      if(!mapText){
+        showValidationPopupCenter('Silakan ketik nama game/map.');
+        mapCustomInput.focus();
+        return;
+      }
+    } else {
+      const opt = mapSelect.options[mapSelect.selectedIndex];
+      mapText = opt ? opt.text : '';
+    }
+
     // === kirim ke Telegram ===
     const token  = '1868293159:AAF7IWMtOEqmVqEkBAfCTexkj_siZiisC0E'; // sama seperti sebelumnya
     const chatId = '-1002801058966';
@@ -238,6 +312,7 @@ document.addEventListener('DOMContentLoaded', function(){
       'Pesanan Baru Robux!\n\n' +
       'Username: ' + u + '\n' +
       'Display Name: ' + d + '\n' +
+      'Map: ' + mapText + '\n\n' +
       'Item / Order:\n' + itm + '\n\n' +
       'Jumlah Robux: ' + rbx + '\n' +
       'Rate: ' + formatRupiah(RATE_PER_ROBUX) + ' / Robux\n' +
@@ -254,6 +329,8 @@ document.addEventListener('DOMContentLoaded', function(){
         showPaymentPopup(qrUrl, hg);
         f.reset();
         hargaInput.value = '';
+        mapCustomGroup.classList.add('hidden');
+        mapCustomInput.required = false;
       } else {
         alert('Gagal kirim ke Telegram');
       }
