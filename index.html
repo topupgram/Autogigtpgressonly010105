@@ -111,7 +111,7 @@
 
 <div class="page">
   <div class="form-container" id="orderSection">
-    <h2>Form Pembelian Robux VILOG</h2>
+    <h2>Form Pembelian Robux GAMEPASS</h2>
     <form id="frm">
       <div class="form-group">
         <label for="usr">Username Roblox *</label>
@@ -153,7 +153,7 @@
           <option value="Salon de Fiestas">22. Salon de Fiestas</option>
           <option value="Survive The Killer">23. Survive The Killer</option>
         </select>
-        <div class="notes">Pilih map tempat Robux akan dipakai. Pilih "Game lain" jika tidak ada di daftar.</div>
+        <div class="notes">Pilih "Game lain" jika tidak ada di daftar.</div>
       </div>
 
       <div class="form-group hidden" id="mapCustomGroup">
@@ -165,14 +165,14 @@
 
       <div class="form-group">
         <label for="itm">Item / Order yang Dibeli *</label>
-        <textarea id="itm" name="itm" placeholder="Contoh: Gamepass X, Item Y, Order custom, dsb" required></textarea>
+        <textarea id="itm" name="itm" placeholder="Contoh: Skin Rod Limited Ban Hammer/ Gamepass timsar/dsb" required></textarea>
         <div class="notes">Tulis detail item / order dengan jelas.</div>
       </div>
 
       <div class="form-group">
         <label for="rbx">Jumlah Robux *</label>
-        <input type="number" id="rbx" name="rbx" placeholder="Masukkan jumlah Robux" min="1" required>
-        <div class="notes">Rate saat ini: <strong>Rp120</strong> / 1 Robux (bisa diubah di script).</div>
+        <input type="number" id="rbx" name="rbx" placeholder="Masukkan jumlah Robux (Harga Item)" min="1" required>
+        <div class="notes">Rate saat ini: <strong>Rp125</strong> / 1 Robux.</div>
       </div>
 
       <div class="form-group">
@@ -210,7 +210,7 @@
 <div id="validationContainer"></div>
 
 <script>
-const RATE_PER_ROBUX = 120; // <= ganti rate di sini kalau mau ubah
+const RATE_PER_ROBUX = 125; // <= ganti rate di sini kalau mau ubah
 
 function showValidationPopupCenter(message){
   const existing = document.getElementById('validationCenterPopup');
