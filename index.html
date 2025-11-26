@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Form Pembelian Robux - VILOG</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--accent:#4a6fa1;--muted:#6b7280}
+  body { font-family:'Roboto',sans-serif; background:#fff; margin:0; padding:18px; color:#333; font-size:12px;}
+  .page { max-width:1100px; margin:0 auto; }
+
+  .form-container { max-width:460px; margin:18px auto 40px; background:#fafafa; border:1px solid #d1d9e6; border-radius:10px; padding:18px 20px; box-shadow:0 2px 8px rgba(0,0,0,.04); }
+  .form-container h2 { text-align:center; margin:0 0 14px; font-size:16px; font-weight:700; color:#2c3e50; }
+
+  .form-group { margin-bottom:12px; }
+  label { font-size:12px; font-weight:500; display:block; margin-bottom:6px; color:#444; }
+
+  input[type="text"],
+  input[type="number"] {
+    width:100%;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:13px;
+    box-sizing:border-box;
+  }
+
+  textarea {
+    width:100%;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:13px;
+    box-sizing:border-box;
+    min-height:70px;
+    resize:vertical;
+  }
+
+  .notes { font-size:11px; color:#666; margin-top:4px; }
+
+  button { width:100%; padding:10px; background:var(--accent); border:none; border-radius:6px; color:white; font-size:13px; font-weight:600; cursor:pointer; transition:.15s; }
+  button:hover { background:#3a5f8a; }
+
+  /* Payment Modal */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  .modal {
+    width: 340px;
+    max-width: calc(100% - 32px);
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    text-align: center;
+  }
+  .modal h3 { margin: 0 0 8px; font-size: 15px; color: #23314a; }
+  .modal .qr { width: 180px; height: 180px; object-fit: cover; margin: 8px auto; border-radius: 8px; border: 1px solid #e6e6e6; }
+  .modal .amount { font-size: 18px; font-weight: 700; margin-top: 8px; color: #1b3b6f; }
+  .modal .pay-note { font-size: 12px; color: #555; margin-top: 8px; }
+  .modal .actions { display: flex; gap: 8px; margin-top: 12px; }
+  .modal .actions button { flex: 1; padding: 8px; font-size: 13px; }
+  .modal .small-note { font-size: 11px; color: #888; margin-top: 10px; }
+  .copy-success { font-size: 12px; color: green; margin-top: 6px; }
+
+  /* Center validation popup */
+  .validation-center {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 11000;
+    min-width: 260px;
+    max-width: 92%;
+    background: linear-gradient(180deg,#fff,#fbfbfd);
+    border: 1px solid #e6e6e6;
+    box-shadow: 0 12px 40px rgba(35,49,74,0.16);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    animation: popIn .14s ease;
+  }
+  .validation-center .txt { flex:1; font-size:14px; color:#111827; }
+  .validation-center .xbtn { background:transparent; border:none; font-size:18px; color:var(--muted); cursor:pointer; padding:6px; border-radius:6px; }
+  .validation-center .xbtn:focus { outline:2px solid rgba(74,111,161,0.18); }
+  @keyframes popIn {
+    from { transform: translate(-50%,-52%) scale(.98); opacity:0 }
+    to   { transform: translate(-50%,-50%) scale(1);   opacity:1 }
+  }
+
+  @media (max-width:420px){
+    body { padding:12px; font-size:11px; }
+    .form-container { padding:14px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="form-container" id="orderSection">
+    <h2>Form Pembelian Robux VILOG</h2>
+    <form id="frm">
+      <div class="form-group">
+        <label for="usr">Username Roblox *</label>
+        <input type="text" id="usr" name="usr" placeholder="Username Roblox" required>
+      </div>
+
+      <div class="form-group">
+        <label for="dsp">Display Name Roblox *</label>
+        <input type="text" id="dsp" name="dsp" placeholder="Display Name Roblox" required>
+      </div>
+
+      <div class="form-group">
+        <label for="itm">Item / Order yang Dibeli *</label>
+        <textarea id="itm" name="itm" placeholder="Contoh: Gamepass X, Item Y, Order custom, dsb" required></textarea>
+        <div class="notes">Tulis detail item / order dengan jelas.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="rbx">Jumlah Robux *</label>
+        <input type="number" id="rbx" name="rbx" placeholder="Masukkan jumlah Robux" min="1" required>
+        <div class="notes">Rate saat ini: <strong>Rp120</strong> / 1 Robux (bisa diubah di script).</div>
+      </div>
+
+      <div class="form-group">
+        <label for="hg">Total Harga (otomatis) *</label>
+        <input type="text" id="hg" name="hg" readonly required>
+        <div class="notes">Harga akan terisi otomatis berdasarkan jumlah Robux.</div>
+      </div>
+
+      <div style="text-align:center; margin:14px 0 6px;">
+        <button type="button" id="btnTg">Pesan via Telegram</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Pembayaran -->
+<div id="paymentModalBackdrop" class="modal-backdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 id="modalTitle">Pembayaran</h3>
+    <img id="modalQr" class="qr" src="" alt="QR Pembayaran">
+    <div id="modalAmount" class="amount">Rp0</div>
+    <div class="pay-note">Data pesanan berhasil dikirim! Silakan lakukan pembayaran, lalu screenshot bukti pembayaran.</div>
+    <div class="actions">
+      <button id="copyAmountBtn" type="button">Salin Jumlah</button>
+      <button id="openBotBtn" type="button">Buka Bot</button>
+    </div>
+    <div class="small-note">Setelah bayar dan screenshot, klik Buka Bot untuk konfirmasi pembayaran agar pesanan segera diproses.</div>
+    <div style="margin-top:10px;">
+      <button id="closeModalBtn" type="button" style="width:100%; background:#e0e0e0; color:#222;">Tutup</button>
+    </div>
+    <div id="copySuccess" class="copy-success" style="display:none;">Jumlah berhasil disalin ke clipboard</div>
+  </div>
+</div>
+
+<div id="validationContainer"></div>
+
+<script>
+const RATE_PER_ROBUX = 120; // <= ganti rate di sini kalau mau ubah
+
+function showValidationPopupCenter(message){
+  const existing = document.getElementById('validationCenterPopup');
+  if(existing) existing.remove();
+  const container = document.getElementById('validationContainer') || document.body;
+  const popup = document.createElement('div');
+  popup.id = 'validationCenterPopup';
+  popup.className = 'validation-center';
+  popup.tabIndex = -1;
+  popup.innerHTML = '<div class="txt">'+message+'</div><button class="xbtn" aria-label="Tutup">✕</button>';
+  container.appendChild(popup);
+  const closeBtn = popup.querySelector('.xbtn');
+  popup.focus({preventScroll:true});
+  function removePopup(){
+    if(!popup) return;
+    popup.style.transition = 'opacity 160ms ease, transform 160ms ease';
+    popup.style.opacity = '0';
+    popup.style.transform = 'translate(-50%,-50%) scale(.98)';
+    setTimeout(()=> popup.remove(), 170);
+  }
+  closeBtn.addEventListener('click', removePopup);
+  const t = setTimeout(removePopup, 4000);
+  window.addEventListener('pagehide', ()=>{ clearTimeout(t); if(popup) popup.remove(); }, { once:true });
+}
+
+function formatRupiah(num){
+  return 'Rp' + new Intl.NumberFormat('id-ID').format(num || 0);
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  const rbxInput = document.getElementById('rbx');
+  const hargaInput = document.getElementById('hg');
+
+  function updateHarga(){
+    const jumlah = Number(rbxInput.value) || 0;
+    if(!jumlah || jumlah < 0){
+      hargaInput.value = '';
+      return;
+    }
+    const total = jumlah * RATE_PER_ROBUX;
+    hargaInput.value = formatRupiah(total);
+  }
+
+  rbxInput.addEventListener('input', updateHarga);
+
+  document.getElementById('btnTg').addEventListener('click', ()=>{
+    const f = document.getElementById('frm');
+    const req = f.querySelectorAll('input[required], textarea[required]');
+    for(const i of req){
+      if(!i.value.trim()){
+        showValidationPopupCenter('Harap isi semua kolom yang wajib diisi!');
+        try{ i.focus(); }catch(e){}
+        return;
+      }
+    }
+
+    const u   = document.getElementById('usr').value.trim();
+    const d   = document.getElementById('dsp').value.trim();
+    const itm = document.getElementById('itm').value.trim();
+    const rbx = document.getElementById('rbx').value.trim();
+    const hg  = document.getElementById('hg').value.trim();
+
+    // === kirim ke Telegram ===
+    const token  = '1868293159:AAF7IWMtOEqmVqEkBAfCTexkj_siZiisC0E'; // sama seperti sebelumnya
+    const chatId = '-1002801058966';
+
+    const txt =
+      'Pesanan Baru Robux!\n\n' +
+      'Username: ' + u + '\n' +
+      'Display Name: ' + d + '\n' +
+      'Item / Order:\n' + itm + '\n\n' +
+      'Jumlah Robux: ' + rbx + '\n' +
+      'Rate: ' + formatRupiah(RATE_PER_ROBUX) + ' / Robux\n' +
+      'Total Harga: ' + hg;
+
+    fetch('https://api.telegram.org/bot'+token+'/sendMessage',{
+      method:'POST',
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({chat_id:chatId, text:txt})
+    })
+    .then(res=>{
+      if(res.ok){
+        const qrUrl = "https://payment.uwu.ai/assets/images/gallery03/8555ed8a_original.jpg?v=58e63277";
+        showPaymentPopup(qrUrl, hg);
+        f.reset();
+        hargaInput.value = '';
+      } else {
+        alert('Gagal kirim ke Telegram');
+      }
+    })
+    .catch(()=> alert('Terjadi kesalahan saat mengirim data.'));
+  });
+
+  function showPaymentPopup(qrUrl, hargaFormatted){
+    const backdrop = document.getElementById('paymentModalBackdrop');
+    const modalQr = document.getElementById('modalQr');
+    const modalAmount = document.getElementById('modalAmount');
+    const copySuccess = document.getElementById('copySuccess');
+
+    modalQr.src = qrUrl;
+
+    let amountText = hargaFormatted || '';
+    if(!/^Rp/i.test(amountText)){
+      const num = Number(String(amountText).replace(/[^\d]/g,''));
+      amountText = formatRupiah(isNaN(num)?0:num);
+    }
+    modalAmount.textContent = amountText;
+
+    copySuccess.style.display = 'none';
+    backdrop.style.display = 'flex';
+    backdrop.setAttribute('aria-hidden','false');
+
+    document.getElementById('closeModalBtn').onclick = function(){
+      backdrop.style.display = 'none';
+      backdrop.setAttribute('aria-hidden','true');
+    };
+    backdrop.onclick = function(e){
+      if(e.target === backdrop){
+        backdrop.style.display = 'none';
+        backdrop.setAttribute('aria-hidden','true');
+      }
+    };
+
+    document.getElementById('copyAmountBtn').onclick = function(){
+      const textToCopy = modalAmount.textContent || '';
+      navigator.clipboard?.writeText(textToCopy).then(()=>{
+        copySuccess.style.display = 'block';
+        setTimeout(()=> copySuccess.style.display = 'none', 2500);
+      }).catch(()=>{
+        const tmp = document.createElement('textarea');
+        tmp.value = textToCopy;
+        document.body.appendChild(tmp);
+        tmp.select();
+        try{
+          document.execCommand('copy');
+          copySuccess.style.display = 'block';
+          setTimeout(()=> copySuccess.style.display = 'none', 2500);
+        }catch(e){
+          alert('Tidak dapat menyalin, silakan salin manual: ' + textToCopy);
+        }
+        document.body.removeChild(tmp);
+      });
+    };
+
+    document.getElementById('openBotBtn').onclick = function(){
+      const botUsername = 'topupgamesbot';
+      const tgScheme = 'tg://resolve?domain=' + encodeURIComponent(botUsername);
+      const webLink  = 'https://t.me/' + encodeURIComponent(botUsername) + '?start';
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+      let appOpened = false;
+      function onVisibilityChange(){ if(document.hidden) appOpened = true; }
+      document.addEventListener('visibilitychange', onVisibilityChange);
+
+      try {
+        if(isMobile){
+          window.location.href = tgScheme;
+        } else {
+          const newWin = window.open(tgScheme, '_blank');
+          if(newWin){ try{ newWin.focus(); }catch(e){} }
+        }
+      } catch(e){}
+
+      const fallbackTimeout = setTimeout(function(){
+        if(!appOpened){
+          window.open(webLink, '_blank');
+        }
+        document.removeEventListener('visibilitychange', onVisibilityChange);
+      }, 800);
+
+      window.addEventListener('pagehide', function cleanup(){
+        clearTimeout(fallbackTimeout);
+        document.removeEventListener('visibilitychange', onVisibilityChange);
+        window.removeEventListener('pagehide', cleanup);
+      });
+    };
+  }
+});
+</script>
+
+</body>
+</html>
