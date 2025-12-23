@@ -1,221 +1,190 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Form Pembelian Robux</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-body{
-  font-family:Roboto,sans-serif;
-  background:#fff;
-  padding:20px;
-  font-size:13px
-}
-.form-box{
-  max-width:480px;
-  margin:auto;
-  border:1px solid #d1d9e6;
-  border-radius:10px;
-  padding:20px;
-  background:#fafafa
-}
-h2{text-align:center;margin-bottom:15px}
-label{font-weight:500;margin-bottom:5px;display:block}
-input,select,textarea{
-  width:100%;
-  padding:8px;
-  margin-bottom:12px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  font-size:13px
-}
-textarea{min-height:70px}
-button{
-  width:100%;
-  padding:10px;
-  border:none;
-  background:#4a6fa1;
-  color:#fff;
-  border-radius:6px;
-  font-weight:600;
-  cursor:pointer
-}
-.hidden{display:none}
-.note{font-size:11px;color:#666}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Form Pembelian Robux - GAMEPASS</title>
 
-/* ===== PAYMENT MODAL ===== */
-#paymentModalBackdrop{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.5);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999
-}
-#paymentModal{
-  background:#fff;
-  width:90%;
-  max-width:320px;
-  border-radius:10px;
-  padding:15px;
-  text-align:center
-}
-.method-btn{
-  padding:6px 10px;
-  margin:4px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  cursor:pointer;
-  background:#f5f5f5;
-  font-size:12px
-}
-.method-btn:hover{background:#eaeaea}
-#modalQr{width:100%;margin:10px 0}
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{--accent:#4a6fa1;--muted:#6b7280}
+body{font-family:Roboto,sans-serif;background:#fff;margin:0;padding:18px;font-size:12px}
+.form-container{max-width:460px;margin:auto;background:#fafafa;border:1px solid #d1d9e6;border-radius:10px;padding:18px}
+label{display:block;margin-bottom:6px}
+input,select,textarea{width:100%;padding:8px;border-radius:6px;border:1px solid #ccc}
+button{width:100%;padding:10px;border:none;border-radius:6px;background:var(--accent);color:#fff;font-weight:600}
+.hidden{display:none}
+
+/* MODAL */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:9999}
+.modal{background:#fff;border-radius:12px;padding:16px;width:340px;text-align:center}
+.qr{width:180px;height:180px;margin:auto;border-radius:8px;border:1px solid #eee}
+.amount{font-size:18px;font-weight:700;margin:10px 0}
+
+.method-switch{display:flex;gap:6px;margin:10px 0}
+.method-btn{flex:1;padding:6px;border-radius:6px;border:1px solid #ccc;background:#f3f3f3;font-size:12px}
+.method-btn.active{background:var(--accent);color:#fff}
+
+.wallet-number{font-weight:700;margin:6px 0}
+.copy-mini-btn{padding:4px;font-size:11px}
+
+.actions{display:flex;gap:8px;margin-top:10px}
+.actions button{flex:1}
+
+.copy-success{font-size:12px;color:green;margin-top:6px}
 </style>
 </head>
 
 <body>
 
-<div class="form-box">
-<h2>Form Pembelian Robux</h2>
-
+<div class="form-container">
 <form id="frm">
 <label>Username Roblox *</label>
-<input type="text" id="usr" required>
+<input id="usr" required>
 
 <label>Display Name *</label>
-<input type="text" id="dsp" required>
+<input id="dsp" required>
 
 <label>Maps *</label>
 <select id="map" required>
-  <option value="">-- Pilih --</option>
-  <option value="GAMEPASS">1. Robux Gamepass NO TAX (5–7 days)</option>
-  <option value="0">0. Game lain (ketik manual)</option>
-  <option>Adopt Me</option>
-  <option>Blox Fruit</option>
-  <option>BedWars</option>
-  <option>Brookhaven</option>
+<option value="">-- pilih --</option>
+<option value="Robux Gamepass">1. Robux Gamepass NO TAX</option>
 </select>
 
-<div id="mapCustomGroup" class="hidden">
-  <label>Nama Game *</label>
-  <input type="text" id="mapCustom">
-</div>
-
-<div id="itemGroup">
-  <label>Item / Order *</label>
-  <textarea id="itm"></textarea>
-</div>
-
-<div id="gpGroup" class="hidden">
-  <label>Link / ID Gamepass *</label>
-  <input type="text" id="gpLink">
-</div>
+<label>Item / Order *</label>
+<textarea id="itm" required></textarea>
 
 <label>Jumlah Robux *</label>
-<input type="number" id="rbx" min="1" required>
-<div id="rbxNote" class="note">Rate Rp85 / Robux</div>
+<input type="number" id="rbx" required>
 
 <label>Total Harga</label>
-<input type="text" id="hg" readonly>
+<input id="hg" readonly>
 
-<button type="button" id="btnTg">Pesan & Lanjut Payment</button>
+<button type="button" id="btnTg">Pesan via Telegram</button>
 </form>
 </div>
 
-<!-- ===== PAYMENT MODAL ===== -->
-<div id="paymentModalBackdrop">
-  <div id="paymentModal">
-    <h3>Pilih Metode Pembayaran</h3>
-    <div>
-      <button class="method-btn" data-method="qris">QRIS</button>
-      <button class="method-btn" data-method="gopay">GoPay</button>
-      <button class="method-btn" data-method="seabank">SeaBank</button>
-      <button class="method-btn" data-method="dana">DANA</button>
-    </div>
-    <img id="modalQr" src="">
-    <p>Total Bayar:<br><strong id="modalAmount"></strong></p>
-    <button id="closeModalBtn">Tutup</button>
-  </div>
+<!-- PAYMENT MODAL -->
+<div id="paymentModalBackdrop" class="modal-backdrop">
+<div class="modal">
+<h3>Pembayaran</h3>
+
+<img id="modalQr" class="qr">
+<div id="modalAmount" class="amount">Rp0</div>
+
+<div class="method-switch">
+<button class="method-btn active" data-method="qris">QRIS</button>
+<button class="method-btn" data-method="gopay">GoPay</button>
+<button class="method-btn" data-method="seabank">SeaBank</button>
+<button class="method-btn" data-method="dana">DANA</button>
+</div>
+
+<div class="wallet-section">
+<div id="walletLabel">QRIS (scan QR di atas)</div>
+<div class="wallet-number" id="walletNumber">Gunakan QR di atas</div>
+<button id="copyNumberBtn" class="copy-mini-btn">Salin nomor</button>
+<div id="walletNote" style="font-size:11px;color:#555">
+QRIS hingga Rp499.000 tidak ada biaya tambahan.
+</div>
+</div>
+
+<div class="actions">
+<button id="copyAmountBtn">Salin Jumlah</button>
+<button id="openBotBtn">Buka Bot</button>
+</div>
+
+<button id="closeModalBtn" style="margin-top:10px;background:#ddd;color:#000">Tutup</button>
+<div id="copySuccess" class="copy-success"></div>
+</div>
 </div>
 
 <script>
 const RATE = 85;
-const rbxEl = rbx;
-const hgEl = hg;
-const itmEl = itm;
 
-map.addEventListener('change',()=>{
-  if(map.value==='GAMEPASS'){
-    itemGroup.classList.add('hidden');
-    gpGroup.classList.remove('hidden');
-    rbxNote.innerText='Isi sesuai Jumlah Robux pada gamepass';
-  }else{
-    itemGroup.classList.remove('hidden');
-    gpGroup.classList.add('hidden');
-    rbxNote.innerText='Rate saat ini Rp85 / Robux';
-  }
-  mapCustomGroup.classList.toggle('hidden',map.value!=='0');
-});
-
-rbxEl.addEventListener('input',()=>{
-  const total=rbxEl.value*RATE;
-  hgEl.value='Rp'+total.toLocaleString('id-ID');
-});
-
-function sanitize(v){return Number(String(v).replace(/\D+/g,''))}
-function formatRp(v){return 'Rp'+v.toLocaleString('id-ID')}
-
-btnTg.onclick=()=>{
-  if(!frm.checkValidity()){alert('Lengkapi data!');return}
-
-  let mapName = map.value==='0'?mapCustom.value:map.options[map.selectedIndex].text;
-  let detail = map.value==='GAMEPASS'?'Gamepass: '+gpLink.value:'Item: '+itmEl.value;
-
-  let msg =
-`Pesanan Baru
-Username: ${usr.value}
-Display: ${dsp.value}
-Map: ${mapName}
-
-${detail}
-Robux: ${rbxEl.value}
-Total: ${hgEl.value}`;
-
-  fetch('https://api.telegram.org/bot1868293159:AAF7IWMtOEqmVqEkBAfCTexkj_siZiisC0E/sendMessage',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({chat_id:'-1002801058966',text:msg})
-  }).then(()=>{
-    showPayment(hgEl.value);
-    frm.reset();
-  });
+/* PAYMENT DATA */
+const PAYMENT_METHODS = {
+qris:{
+qr:"https://payment.uwu.ai/assets/images/gallery03/8555ed8a_original.jpg",
+label:"QRIS (scan QR di atas)",
+number:"Gunakan QR di atas"
+},
+gopay:{
+qr:"https://via.placeholder.com/180?text=GOPAY",
+label:"GoPay",
+number:"08123456789"
+},
+seabank:{
+qr:"https://via.placeholder.com/180?text=SEABANK",
+label:"SeaBank",
+number:"901234567890"
+},
+dana:{
+qr:"https://via.placeholder.com/180?text=DANA",
+label:"DANA",
+number:"08129876543"
+}
 };
 
-function showPayment(hgFmt){
-  const base=sanitize(hgFmt);
-  const QR="https://payment.uwu.ai/assets/images/gallery03/8555ed8a_original.jpg?v=58e63277";
+rbx.oninput=()=>hg.value="Rp"+(rbx.value*RATE).toLocaleString("id-ID");
 
-  function apply(m){
-    let t=base;
-    if(m==='qris'&&base>499000)t=Math.round(base*1.003);
-    if(m==='dana')t+=100;
-    modalAmount.innerText=formatRp(t);
-    modalQr.src=QR;
-    modalQr.style.display=m==='qris'?'block':'none';
-  }
+btnTg.onclick=()=>{
+const txt=
+`Pesanan Baru Robux!\n
+Username: ${usr.value}
+Display: ${dsp.value}
+Map: ${map.value}
 
-  apply('qris');
-  paymentModalBackdrop.style.display='flex';
+Item:
+${itm.value}
 
-  document.querySelectorAll('.method-btn').forEach(b=>{
-    b.onclick=()=>apply(b.dataset.method);
-  });
+Jumlah Robux: ${rbx.value}
+Total: ${hg.value}`;
+
+fetch("https://api.telegram.org/bot8039852277:AAEqbfQUF37cjDlEposj2rzHm28_Pxzv-mw/sendMessage",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({chat_id:"-1003049680083",text:txt})
+}).then(()=>{
+openPayment();
+frm.reset();
+hg.value="";
+});
+};
+
+function openPayment(){
+paymentModalBackdrop.style.display="flex";
+setMethod("qris");
+modalAmount.textContent=hg.value;
 }
 
-closeModalBtn.onclick=()=>paymentModalBackdrop.style.display='none';
+function setMethod(m){
+document.querySelectorAll(".method-btn").forEach(b=>b.classList.remove("active"));
+document.querySelector(`[data-method="${m}"]`).classList.add("active");
+modalQr.src=PAYMENT_METHODS[m].qr;
+walletLabel.textContent=PAYMENT_METHODS[m].label;
+walletNumber.textContent=PAYMENT_METHODS[m].number;
+}
+
+document.querySelectorAll(".method-btn").forEach(b=>{
+b.onclick=()=>setMethod(b.dataset.method);
+});
+
+copyAmountBtn.onclick=()=>{
+navigator.clipboard.writeText(modalAmount.textContent);
+copySuccess.textContent="Jumlah disalin";
+};
+
+copyNumberBtn.onclick=()=>{
+navigator.clipboard.writeText(walletNumber.textContent);
+copySuccess.textContent="Nomor disalin";
+};
+
+closeModalBtn.onclick=()=>paymentModalBackdrop.style.display="none";
+
+openBotBtn.onclick=()=>{
+window.open("https://t.me/topupgamesbot","_blank");
+};
 </script>
 
 </body>
