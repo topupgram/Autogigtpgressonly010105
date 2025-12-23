@@ -1,196 +1,221 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Form Pembelian Robux - GAMEPASS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Pembelian Robux</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root{--accent:#4a6fa1;--muted:#6b7280}
-  body { font-family:'Roboto',sans-serif; background:#fff; margin:0; padding:18px; color:#333; font-size:12px;}
-  .page { max-width:1100px; margin:0 auto; }
+body{
+  font-family:Roboto,sans-serif;
+  background:#fff;
+  padding:20px;
+  font-size:13px
+}
+.form-box{
+  max-width:480px;
+  margin:auto;
+  border:1px solid #d1d9e6;
+  border-radius:10px;
+  padding:20px;
+  background:#fafafa
+}
+h2{text-align:center;margin-bottom:15px}
+label{font-weight:500;margin-bottom:5px;display:block}
+input,select,textarea{
+  width:100%;
+  padding:8px;
+  margin-bottom:12px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:13px
+}
+textarea{min-height:70px}
+button{
+  width:100%;
+  padding:10px;
+  border:none;
+  background:#4a6fa1;
+  color:#fff;
+  border-radius:6px;
+  font-weight:600;
+  cursor:pointer
+}
+.hidden{display:none}
+.note{font-size:11px;color:#666}
 
-  .form-container { max-width:460px; margin:18px auto 40px; background:#fafafa; border:1px solid #d1d9e6; border-radius:10px; padding:18px 20px; box-shadow:0 2px 8px rgba(0,0,0,.04); }
-  .form-container h2 { text-align:center; margin:0 0 14px; font-size:16px; font-weight:700; color:#2c3e50; }
-
-  .form-group { margin-bottom:12px; }
-  label { font-size:12px; font-weight:500; display:block; margin-bottom:6px; color:#444; }
-
-  input[type="text"],
-  input[type="number"],
-  select {
-    width:100%;
-    padding:8px;
-    border:1px solid #ccc;
-    border-radius:6px;
-    font-size:13px;
-    box-sizing:border-box;
-  }
-
-  textarea {
-    width:100%;
-    padding:8px;
-    border:1px solid #ccc;
-    border-radius:6px;
-    font-size:13px;
-    box-sizing:border-box;
-    min-height:70px;
-    resize:vertical;
-  }
-
-  .notes { font-size:11px; color:#666; margin-top:4px; }
-
-  button { width:100%; padding:10px; background:var(--accent); border:none; border-radius:6px; color:white; font-size:13px; font-weight:600; cursor:pointer; transition:.15s; }
-  button:hover { background:#3a5f8a; }
-
-  .hidden { display:none; }
+/* ===== PAYMENT MODAL ===== */
+#paymentModalBackdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999
+}
+#paymentModal{
+  background:#fff;
+  width:90%;
+  max-width:320px;
+  border-radius:10px;
+  padding:15px;
+  text-align:center
+}
+.method-btn{
+  padding:6px 10px;
+  margin:4px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  cursor:pointer;
+  background:#f5f5f5;
+  font-size:12px
+}
+.method-btn:hover{background:#eaeaea}
+#modalQr{width:100%;margin:10px 0}
 </style>
 </head>
+
 <body>
 
-<div class="page">
-  <div class="form-container" id="orderSection">
-    <h2>Form Pembelian Robux GAMEPASS NORUSH</h2>
-    <form id="frm">
+<div class="form-box">
+<h2>Form Pembelian Robux</h2>
 
-      <div class="form-group">
-        <label for="usr">Username Roblox *</label>
-        <input type="text" id="usr" required>
-      </div>
+<form id="frm">
+<label>Username Roblox *</label>
+<input type="text" id="usr" required>
 
-      <div class="form-group">
-        <label for="dsp">Display Name Roblox *</label>
-        <input type="text" id="dsp" required>
-      </div>
+<label>Display Name *</label>
+<input type="text" id="dsp" required>
 
-      <!-- MAPS ROBLOX -->
-      <div class="form-group">
-        <label for="map">Maps Roblox *</label>
-        <select id="map" required>
-          <option value="">-- Pilih Maps --</option>
-          <option value="0">0. Game lain (ketik manual)</option>
-          <option value="Robux Gamepass">1. Robux Gamepass NO TAX (5-7 days)</option>
-          <option value="99 Nights in the Forest">2. 99 Nights in the Forest</option>
-          <option value="Adopt Me!">3. Adopt Me!</option>
-          <option value="Baddies">4. Baddies</option>
-          <option value="BedWars">5. BedWars</option>
-          <option value="Berry Avenue">6. Berry Avenue</option>
-          <option value="Blade Ball">7. Blade Ball</option>
-          <option value="Blox Fruit">8. Blox Fruit</option>
-          <option value="Bloxburg">9. Bloxburg</option>
-          <option value="Blue Lock Rivals">10. Blue Lock Rivals</option>
-          <option value="Brookhaven">11. Brookhaven</option>
-          <option value="Build A Zoo">12. Build A Zoo</option>
-          <option value="Car Driving Indonesia">13. Car Driving Indonesia</option>
-          <option value="Climb and Jump Tower">14. Climb and Jump Tower</option>
-          <option value="Combat Warriors">15. Combat Warriors</option>
-          <option value="Cursed Arena">16. Cursed Arena</option>
-          <option value="Dead Rails">17. Dead Rails</option>
-          <option value="Dress to Impress">18. Dress to Impress</option>
-          <option value="Ekspedition Antartica">19. Ekspedition Antartica</option>
-          <option value="Fish It">20. Fish It</option>
-          <option value="Fisch">21. Fisch</option>
-          <option value="Grow a Garden">22. Grow a Garden</option>
-          <option value="Salon de Fiestas">23. Salon de Fiestas</option>
-          <option value="Survive The Killer">24. Survive The Killer</option>
-        </select>
-      </div>
+<label>Maps *</label>
+<select id="map" required>
+  <option value="">-- Pilih --</option>
+  <option value="GAMEPASS">1. Robux Gamepass NO TAX (5–7 days)</option>
+  <option value="0">0. Game lain (ketik manual)</option>
+  <option>Adopt Me</option>
+  <option>Blox Fruit</option>
+  <option>BedWars</option>
+  <option>Brookhaven</option>
+</select>
 
-      <div class="form-group hidden" id="mapCustomGroup">
-        <label>Nama Game / Map *</label>
-        <input type="text" id="mapCustom">
-      </div>
-      <!-- END MAPS -->
+<div id="mapCustomGroup" class="hidden">
+  <label>Nama Game *</label>
+  <input type="text" id="mapCustom">
+</div>
 
-      <!-- GAMEPASS NO TAX -->
-      <div class="form-group hidden" id="gamepassGroup">
-        <label>Link / ID Gamepass *</label>
-        <input type="text" id="gpLink">
-      </div>
+<div id="itemGroup">
+  <label>Item / Order *</label>
+  <textarea id="itm"></textarea>
+</div>
 
-      <div class="form-group" id="itemGroup">
-        <label>Item / Order yang Dibeli *</label>
-        <textarea id="itm" required></textarea>
-      </div>
+<div id="gpGroup" class="hidden">
+  <label>Link / ID Gamepass *</label>
+  <input type="text" id="gpLink">
+</div>
 
-      <div class="form-group">
-        <label>Jumlah Robux *</label>
-        <input type="number" id="rbx" min="1" required>
-        <div class="notes" id="rbxNote">Rate saat ini: <strong>Rp86</strong> / 1 Robux.</div>
-      </div>
+<label>Jumlah Robux *</label>
+<input type="number" id="rbx" min="1" required>
+<div id="rbxNote" class="note">Rate Rp85 / Robux</div>
 
-      <div class="form-group">
-        <label>Total Harga (otomatis) *</label>
-        <input type="text" id="hg" readonly required>
-      </div>
+<label>Total Harga</label>
+<input type="text" id="hg" readonly>
 
-      <button type="button" id="btnTg">Pesan via Telegram</button>
-    </form>
+<button type="button" id="btnTg">Pesan & Lanjut Payment</button>
+</form>
+</div>
+
+<!-- ===== PAYMENT MODAL ===== -->
+<div id="paymentModalBackdrop">
+  <div id="paymentModal">
+    <h3>Pilih Metode Pembayaran</h3>
+    <div>
+      <button class="method-btn" data-method="qris">QRIS</button>
+      <button class="method-btn" data-method="gopay">GoPay</button>
+      <button class="method-btn" data-method="seabank">SeaBank</button>
+      <button class="method-btn" data-method="dana">DANA</button>
+    </div>
+    <img id="modalQr" src="">
+    <p>Total Bayar:<br><strong id="modalAmount"></strong></p>
+    <button id="closeModalBtn">Tutup</button>
   </div>
 </div>
 
 <script>
-const RATE_PER_ROBUX = 85;
+const RATE = 85;
+const rbxEl = rbx;
+const hgEl = hg;
+const itmEl = itm;
 
-function formatRupiah(num){
-  return 'Rp' + new Intl.NumberFormat('id-ID').format(num || 0);
+map.addEventListener('change',()=>{
+  if(map.value==='GAMEPASS'){
+    itemGroup.classList.add('hidden');
+    gpGroup.classList.remove('hidden');
+    rbxNote.innerText='Isi sesuai Jumlah Robux pada gamepass';
+  }else{
+    itemGroup.classList.remove('hidden');
+    gpGroup.classList.add('hidden');
+    rbxNote.innerText='Rate saat ini Rp85 / Robux';
+  }
+  mapCustomGroup.classList.toggle('hidden',map.value!=='0');
+});
+
+rbxEl.addEventListener('input',()=>{
+  const total=rbxEl.value*RATE;
+  hgEl.value='Rp'+total.toLocaleString('id-ID');
+});
+
+function sanitize(v){return Number(String(v).replace(/\D+/g,''))}
+function formatRp(v){return 'Rp'+v.toLocaleString('id-ID')}
+
+btnTg.onclick=()=>{
+  if(!frm.checkValidity()){alert('Lengkapi data!');return}
+
+  let mapName = map.value==='0'?mapCustom.value:map.options[map.selectedIndex].text;
+  let detail = map.value==='GAMEPASS'?'Gamepass: '+gpLink.value:'Item: '+itmEl.value;
+
+  let msg =
+`Pesanan Baru
+Username: ${usr.value}
+Display: ${dsp.value}
+Map: ${mapName}
+
+${detail}
+Robux: ${rbxEl.value}
+Total: ${hgEl.value}`;
+
+  fetch('https://api.telegram.org/bot1868293159:AAF7IWMtOEqmVqEkBAfCTexkj_siZiisC0E/sendMessage',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({chat_id:'-1002801058966',text:msg})
+  }).then(()=>{
+    showPayment(hgEl.value);
+    frm.reset();
+  });
+};
+
+function showPayment(hgFmt){
+  const base=sanitize(hgFmt);
+  const QR="https://payment.uwu.ai/assets/images/gallery03/8555ed8a_original.jpg?v=58e63277";
+
+  function apply(m){
+    let t=base;
+    if(m==='qris'&&base>499000)t=Math.round(base*1.003);
+    if(m==='dana')t+=100;
+    modalAmount.innerText=formatRp(t);
+    modalQr.src=QR;
+    modalQr.style.display=m==='qris'?'block':'none';
+  }
+
+  apply('qris');
+  paymentModalBackdrop.style.display='flex';
+
+  document.querySelectorAll('.method-btn').forEach(b=>{
+    b.onclick=()=>apply(b.dataset.method);
+  });
 }
 
-document.addEventListener('DOMContentLoaded', ()=>{
-
-  const map = document.getElementById('map');
-  const itemGroup = document.getElementById('itemGroup');
-  const itm = document.getElementById('itm');
-
-  const gpGroup = document.getElementById('gamepassGroup');
-  const gpLink = document.getElementById('gpLink');
-
-  const rbx = document.getElementById('rbx');
-  const hg = document.getElementById('hg');
-  const rbxNote = document.getElementById('rbxNote');
-
-  rbx.addEventListener('input', ()=>{
-    hg.value = formatRupiah((rbx.value || 0) * RATE_PER_ROBUX);
-  });
-
-  map.addEventListener('change', ()=>{
-    const isGamepass = map.value === 'Robux Gamepass';
-
-    if(isGamepass){
-      itemGroup.classList.add('hidden');
-      itm.required = false;
-      itm.value = '';
-
-      gpGroup.classList.remove('hidden');
-      gpLink.required = true;
-
-      rbxNote.innerHTML = 'Masukkan jumlah robux <strong>NO TAX</strong> (belum termasuk potongan tax).';
-    } else {
-      itemGroup.classList.remove('hidden');
-      itm.required = true;
-
-      gpGroup.classList.add('hidden');
-      gpLink.required = false;
-      gpLink.value = '';
-
-      rbxNote.innerHTML = 'Rate saat ini: <strong>Rp86</strong> / 1 Robux.';
-    }
-  });
-
-  document.getElementById('btnTg').addEventListener('click', ()=>{
-    let itemText = itm.value.trim();
-    if(map.value === 'Robux Gamepass'){
-      itemText = 'Gamepass NO TAX\nLink/ID: ' + gpLink.value.trim();
-    }
-    alert(
-      'Map: ' + map.value +
-      '\nItem:\n' + itemText +
-      '\nRobux: ' + rbx.value +
-      '\nTotal: ' + hg.value
-    );
-  });
-
-});
+closeModalBtn.onclick=()=>paymentModalBackdrop.style.display='none';
 </script>
 
 </body>
