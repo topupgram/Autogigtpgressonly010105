@@ -44,67 +44,6 @@
   button:hover { background:#3a5f8a; }
 
   .hidden { display:none; }
-
-  /* Payment Modal */
-  .modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
-  .modal {
-    width: 340px;
-    max-width: calc(100% - 32px);
-    background: #fff;
-    border-radius: 12px;
-    padding: 16px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-    text-align: center;
-  }
-  .modal h3 { margin: 0 0 8px; font-size: 15px; color: #23314a; }
-  .modal .qr { width: 180px; height: 180px; object-fit: cover; margin: 8px auto; border-radius: 8px; border: 1px solid #e6e6e6; }
-  .modal .amount { font-size: 18px; font-weight: 700; margin-top: 8px; color: #1b3b6f; }
-  .modal .pay-note { font-size: 12px; color: #555; margin-top: 8px; }
-  .modal .actions { display: flex; gap: 8px; margin-top: 12px; }
-  .modal .actions button { flex: 1; padding: 8px; font-size: 13px; }
-  .modal .small-note { font-size: 11px; color: #888; margin-top: 10px; }
-  .copy-success { font-size: 12px; color: green; margin-top: 6px; }
-
-  /* Center validation popup */
-  .validation-center {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    z-index: 11000;
-    min-width: 260px;
-    max-width: 92%;
-    background: linear-gradient(180deg,#fff,#fbfbfd);
-    border: 1px solid #e6e6e6;
-    box-shadow: 0 12px 40px rgba(35,49,74,0.16);
-    border-radius: 10px;
-    padding: 14px 16px;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    justify-content: space-between;
-    animation: popIn .14s ease;
-  }
-  .validation-center .txt { flex:1; font-size:14px; color:#111827; }
-  .validation-center .xbtn { background:transparent; border:none; font-size:18px; color:var(--muted); cursor:pointer; padding:6px; border-radius:6px; }
-  .validation-center .xbtn:focus { outline:2px solid rgba(74,111,161,0.18); }
-  @keyframes popIn {
-    from { transform: translate(-50%,-52%) scale(.98); opacity:0 }
-    to   { transform: translate(-50%,-50%) scale(1);   opacity:1 }
-  }
-
-  @media (max-width:420px){
-    body { padding:12px; font-size:11px; }
-    .form-container { padding:14px 14px; }
-  }
 </style>
 </head>
 <body>
@@ -113,315 +52,144 @@
   <div class="form-container" id="orderSection">
     <h2>Form Pembelian Robux GAMEPASS NORUSH</h2>
     <form id="frm">
+
       <div class="form-group">
         <label for="usr">Username Roblox *</label>
-        <input type="text" id="usr" name="usr" placeholder="Username Roblox" required>
+        <input type="text" id="usr" required>
       </div>
 
       <div class="form-group">
         <label for="dsp">Display Name Roblox *</label>
-        <input type="text" id="dsp" name="dsp" placeholder="Display Name Roblox" required>
+        <input type="text" id="dsp" required>
       </div>
 
       <!-- MAPS ROBLOX -->
       <div class="form-group">
         <label for="map">Maps Roblox *</label>
-        <select id="map" name="map" required>
+        <select id="map" required>
           <option value="">-- Pilih Maps --</option>
           <option value="0">0. Game lain (ketik manual)</option>
-          <option value="99 Nights in the Forest">1. 99 Nights in the Forest</option>
-          <option value="Adopt Me!">2. Adopt Me!</option>
-          <option value="Baddies">3. Baddies</option>
-          <option value="BedWars">4. BedWars</option>
-          <option value="Berry Avenue">5. Berry Avenue</option>
-          <option value="Blade Ball">6. Blade Ball</option>
-          <option value="Blox Fruit">7. Blox Fruit</option>
-          <option value="Bloxburg">8. Bloxburg</option>
-          <option value="Blue Lock Rivals">9. Blue Lock Rivals</option>
-          <option value="Brookhaven">10. Brookhaven</option>
-          <option value="Build A Zoo">11. Build A Zoo</option>
-          <option value="Car Driving Indonesia">12. Car Driving Indonesia</option>
-          <option value="Climb and Jump Tower">13. Climb and Jump Tower</option>
-          <option value="Combat Warriors">14. Combat Warriors</option>
-          <option value="Cursed Arena">15. Cursed Arena</option>
-          <option value="Dead Rails">16. Dead Rails</option>
-          <option value="Dress to Impress">17. Dress to Impress</option>
-          <option value="Ekspedition Antartica">18. Ekspedition Antartica</option>
-          <option value="Fish It">19. Fish It</option>
-          <option value="Fisch">20. Fisch</option>
-          <option value="Grow a Garden">21. Grow a Garden</option>
-          <option value="Salon de Fiestas">22. Salon de Fiestas</option>
-          <option value="Survive The Killer">23. Survive The Killer</option>
+          <option value="Robux Gamepass">1. Robux Gamepass NO TAX (5-7 days)</option>
+          <option value="99 Nights in the Forest">2. 99 Nights in the Forest</option>
+          <option value="Adopt Me!">3. Adopt Me!</option>
+          <option value="Baddies">4. Baddies</option>
+          <option value="BedWars">5. BedWars</option>
+          <option value="Berry Avenue">6. Berry Avenue</option>
+          <option value="Blade Ball">7. Blade Ball</option>
+          <option value="Blox Fruit">8. Blox Fruit</option>
+          <option value="Bloxburg">9. Bloxburg</option>
+          <option value="Blue Lock Rivals">10. Blue Lock Rivals</option>
+          <option value="Brookhaven">11. Brookhaven</option>
+          <option value="Build A Zoo">12. Build A Zoo</option>
+          <option value="Car Driving Indonesia">13. Car Driving Indonesia</option>
+          <option value="Climb and Jump Tower">14. Climb and Jump Tower</option>
+          <option value="Combat Warriors">15. Combat Warriors</option>
+          <option value="Cursed Arena">16. Cursed Arena</option>
+          <option value="Dead Rails">17. Dead Rails</option>
+          <option value="Dress to Impress">18. Dress to Impress</option>
+          <option value="Ekspedition Antartica">19. Ekspedition Antartica</option>
+          <option value="Fish It">20. Fish It</option>
+          <option value="Fisch">21. Fisch</option>
+          <option value="Grow a Garden">22. Grow a Garden</option>
+          <option value="Salon de Fiestas">23. Salon de Fiestas</option>
+          <option value="Survive The Killer">24. Survive The Killer</option>
         </select>
-        <div class="notes">Pilih "Game lain" jika tidak ada di daftar.</div>
       </div>
 
       <div class="form-group hidden" id="mapCustomGroup">
-        <label for="mapCustom">Nama Game / Map *</label>
-        <input type="text" id="mapCustom" name="mapCustom" placeholder="Ketik nama game atau map">
-        <div class="notes">Isi jika map tidak ada di daftar.</div>
+        <label>Nama Game / Map *</label>
+        <input type="text" id="mapCustom">
       </div>
       <!-- END MAPS -->
 
-      <div class="form-group">
-        <label for="itm">Item / Order yang Dibeli *</label>
-        <textarea id="itm" name="itm" placeholder="Contoh: Skin Rod Limited Ban Hammer/ Gamepass timsar/dsb" required></textarea>
-        <div class="notes">Tulis detail item / order dengan jelas.</div>
+      <!-- GAMEPASS NO TAX -->
+      <div class="form-group hidden" id="gamepassGroup">
+        <label>Link / ID Gamepass *</label>
+        <input type="text" id="gpLink">
+      </div>
+
+      <div class="form-group" id="itemGroup">
+        <label>Item / Order yang Dibeli *</label>
+        <textarea id="itm" required></textarea>
       </div>
 
       <div class="form-group">
-        <label for="rbx">Jumlah Robux *</label>
-        <input type="number" id="rbx" name="rbx" placeholder="Masukkan jumlah Robux (Harga Item)" min="1" required>
-        <div class="notes">Rate saat ini: <strong>Rp86</strong> / 1 Robux.</div>
+        <label>Jumlah Robux *</label>
+        <input type="number" id="rbx" min="1" required>
+        <div class="notes" id="rbxNote">Rate saat ini: <strong>Rp86</strong> / 1 Robux.</div>
       </div>
 
       <div class="form-group">
-        <label for="hg">Total Harga (otomatis) *</label>
-        <input type="text" id="hg" name="hg" readonly required>
-        <div class="notes">Harga akan terisi otomatis berdasarkan jumlah Robux.</div>
+        <label>Total Harga (otomatis) *</label>
+        <input type="text" id="hg" readonly required>
       </div>
 
-      <div style="text-align:center; margin:14px 0 6px;">
-        <button type="button" id="btnTg">Pesan via Telegram</button>
-      </div>
+      <button type="button" id="btnTg">Pesan via Telegram</button>
     </form>
   </div>
 </div>
 
-<!-- Modal Pembayaran -->
-<div id="paymentModalBackdrop" class="modal-backdrop" aria-hidden="true">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <h3 id="modalTitle">Pembayaran</h3>
-    <img id="modalQr" class="qr" src="" alt="QR Pembayaran">
-    <div id="modalAmount" class="amount">Rp0</div>
-    <div class="pay-note">Data pesanan berhasil dikirim! Silakan lakukan pembayaran, lalu screenshot bukti pembayaran.</div>
-    <div class="actions">
-      <button id="copyAmountBtn" type="button">Salin Jumlah</button>
-      <button id="openBotBtn" type="button">Buka Bot</button>
-    </div>
-    <div class="small-note">Setelah bayar dan screenshot, klik Buka Bot untuk konfirmasi pembayaran agar pesanan segera diproses.</div>
-    <div style="margin-top:10px;">
-      <button id="closeModalBtn" type="button" style="width:100%; background:#e0e0e0; color:#222;">Tutup</button>
-    </div>
-    <div id="copySuccess" class="copy-success" style="display:none;">Jumlah berhasil disalin ke clipboard</div>
-  </div>
-</div>
-
-<div id="validationContainer"></div>
-
 <script>
-const RATE_PER_ROBUX = 85; // <= ganti rate di sini kalau mau ubah
-
-function showValidationPopupCenter(message){
-  const existing = document.getElementById('validationCenterPopup');
-  if(existing) existing.remove();
-  const container = document.getElementById('validationContainer') || document.body;
-  const popup = document.createElement('div');
-  popup.id = 'validationCenterPopup';
-  popup.className = 'validation-center';
-  popup.tabIndex = -1;
-  popup.innerHTML = '<div class="txt">'+message+'</div><button class="xbtn" aria-label="Tutup">✕</button>';
-  container.appendChild(popup);
-  const closeBtn = popup.querySelector('.xbtn');
-  popup.focus({preventScroll:true});
-  function removePopup(){
-    if(!popup) return;
-    popup.style.transition = 'opacity 160ms ease, transform 160ms ease';
-    popup.style.opacity = '0';
-    popup.style.transform = 'translate(-50%,-50%) scale(.98)';
-    setTimeout(()=> popup.remove(), 170);
-  }
-  closeBtn.addEventListener('click', removePopup);
-  const t = setTimeout(removePopup, 4000);
-  window.addEventListener('pagehide', ()=>{ clearTimeout(t); if(popup) popup.remove(); }, { once:true });
-}
+const RATE_PER_ROBUX = 85;
 
 function formatRupiah(num){
   return 'Rp' + new Intl.NumberFormat('id-ID').format(num || 0);
 }
 
-document.addEventListener('DOMContentLoaded', function(){
-  const rbxInput = document.getElementById('rbx');
-  const hargaInput = document.getElementById('hg');
+document.addEventListener('DOMContentLoaded', ()=>{
 
-  const mapSelect = document.getElementById('map');
-  const mapCustomGroup = document.getElementById('mapCustomGroup');
-  const mapCustomInput = document.getElementById('mapCustom');
+  const map = document.getElementById('map');
+  const itemGroup = document.getElementById('itemGroup');
+  const itm = document.getElementById('itm');
 
-  function updateHarga(){
-    const jumlah = Number(rbxInput.value) || 0;
-    if(!jumlah || jumlah < 0){
-      hargaInput.value = '';
-      return;
-    }
-    const total = jumlah * RATE_PER_ROBUX;
-    hargaInput.value = formatRupiah(total);
-  }
+  const gpGroup = document.getElementById('gamepassGroup');
+  const gpLink = document.getElementById('gpLink');
 
-  rbxInput.addEventListener('input', updateHarga);
+  const rbx = document.getElementById('rbx');
+  const hg = document.getElementById('hg');
+  const rbxNote = document.getElementById('rbxNote');
 
-  // handle maps dropdown -> game lain -> ketik manual
-  mapSelect.addEventListener('change', ()=>{
-    if(mapSelect.value === '0'){
-      mapCustomGroup.classList.remove('hidden');
-      mapCustomInput.required = true;
-      mapCustomInput.focus();
+  rbx.addEventListener('input', ()=>{
+    hg.value = formatRupiah((rbx.value || 0) * RATE_PER_ROBUX);
+  });
+
+  map.addEventListener('change', ()=>{
+    const isGamepass = map.value === 'Robux Gamepass';
+
+    if(isGamepass){
+      itemGroup.classList.add('hidden');
+      itm.required = false;
+      itm.value = '';
+
+      gpGroup.classList.remove('hidden');
+      gpLink.required = true;
+
+      rbxNote.innerHTML = 'Masukkan jumlah robux <strong>NO TAX</strong> (belum termasuk potongan tax).';
     } else {
-      mapCustomGroup.classList.add('hidden');
-      mapCustomInput.required = false;
-      mapCustomInput.value = '';
+      itemGroup.classList.remove('hidden');
+      itm.required = true;
+
+      gpGroup.classList.add('hidden');
+      gpLink.required = false;
+      gpLink.value = '';
+
+      rbxNote.innerHTML = 'Rate saat ini: <strong>Rp86</strong> / 1 Robux.';
     }
   });
 
   document.getElementById('btnTg').addEventListener('click', ()=>{
-    const f = document.getElementById('frm');
-    const req = f.querySelectorAll('input[required], textarea[required], select[required]');
-    for(const i of req){
-      if(!i.value.trim()){
-        showValidationPopupCenter('Harap isi semua kolom yang wajib diisi!');
-        try{ i.focus(); }catch(e){}
-        return;
-      }
+    let itemText = itm.value.trim();
+    if(map.value === 'Robux Gamepass'){
+      itemText = 'Gamepass NO TAX\nLink/ID: ' + gpLink.value.trim();
     }
-
-    const u   = document.getElementById('usr').value.trim();
-    const d   = document.getElementById('dsp').value.trim();
-    const itm = document.getElementById('itm').value.trim();
-    const rbx = document.getElementById('rbx').value.trim();
-    const hg  = document.getElementById('hg').value.trim();
-
-    // map handling
-    let mapText = '';
-    if(mapSelect.value === '0'){
-      mapText = mapCustomInput.value.trim();
-      if(!mapText){
-        showValidationPopupCenter('Silakan ketik nama game/map.');
-        mapCustomInput.focus();
-        return;
-      }
-    } else {
-      const opt = mapSelect.options[mapSelect.selectedIndex];
-      mapText = opt ? opt.text : '';
-    }
-
-    // === kirim ke Telegram ===
-    const token  = '8039852277:AAEqbfQUF37cjDlEposj2rzHm28_Pxzv-mw';
-    const chatId = '-1003049680083';
-
-    const txt =
-      'Pesanan Baru Robux!\n\n' +
-      'Username: ' + u + '\n' +
-      'Display Name: ' + d + '\n' +
-      'Map: ' + mapText + '\n\n' +
-      'Item / Order:\n' + itm + '\n\n' +
-      'Jumlah Robux: ' + rbx + '\n' +
-      'Rate: ' + formatRupiah(RATE_PER_ROBUX) + ' / Robux\n' +
-      'Total Harga: ' + hg;
-
-    fetch('https://api.telegram.org/bot'+token+'/sendMessage',{
-      method:'POST',
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({chat_id:chatId, text:txt})
-    })
-    .then(res=>{
-      if(res.ok){
-        const qrUrl = "https://payment.uwu.ai/assets/images/gallery03/8555ed8a_original.jpg?v=58e63277";
-        showPaymentPopup(qrUrl, hg);
-        f.reset();
-        hargaInput.value = '';
-        mapCustomGroup.classList.add('hidden');
-        mapCustomInput.required = false;
-      } else {
-        alert('Gagal kirim ke Telegram');
-      }
-    })
-    .catch(()=> alert('Terjadi kesalahan saat mengirim data.'));
+    alert(
+      'Map: ' + map.value +
+      '\nItem:\n' + itemText +
+      '\nRobux: ' + rbx.value +
+      '\nTotal: ' + hg.value
+    );
   });
 
-  function showPaymentPopup(qrUrl, hargaFormatted){
-    const backdrop = document.getElementById('paymentModalBackdrop');
-    const modalQr = document.getElementById('modalQr');
-    const modalAmount = document.getElementById('modalAmount');
-    const copySuccess = document.getElementById('copySuccess');
-
-    modalQr.src = qrUrl;
-
-    let amountText = hargaFormatted || '';
-    if(!/^Rp/i.test(amountText)){
-      const num = Number(String(amountText).replace(/[^\d]/g,''));
-      amountText = formatRupiah(isNaN(num)?0:num);
-    }
-    modalAmount.textContent = amountText;
-
-    copySuccess.style.display = 'none';
-    backdrop.style.display = 'flex';
-    backdrop.setAttribute('aria-hidden','false');
-
-    document.getElementById('closeModalBtn').onclick = function(){
-      backdrop.style.display = 'none';
-      backdrop.setAttribute('aria-hidden','true');
-    };
-    backdrop.onclick = function(e){
-      if(e.target === backdrop){
-        backdrop.style.display = 'none';
-        backdrop.setAttribute('aria-hidden','true');
-      }
-    };
-
-    document.getElementById('copyAmountBtn').onclick = function(){
-      const textToCopy = modalAmount.textContent || '';
-      navigator.clipboard?.writeText(textToCopy).then(()=>{
-        copySuccess.style.display = 'block';
-        setTimeout(()=> copySuccess.style.display = 'none', 2500);
-      }).catch(()=>{
-        const tmp = document.createElement('textarea');
-        tmp.value = textToCopy;
-        document.body.appendChild(tmp);
-        tmp.select();
-        try{
-          document.execCommand('copy');
-          copySuccess.style.display = 'block';
-          setTimeout(()=> copySuccess.style.display = 'none', 2500);
-        }catch(e){
-          alert('Tidak dapat menyalin, silakan salin manual: ' + textToCopy);
-        }
-        document.body.removeChild(tmp);
-      });
-    };
-
-    document.getElementById('openBotBtn').onclick = function(){
-      const botUsername = 'topupgamesbot';
-      const tgScheme = 'tg://resolve?domain=' + encodeURIComponent(botUsername);
-      const webLink  = 'https://t.me/' + encodeURIComponent(botUsername) + '?start';
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-      let appOpened = false;
-      function onVisibilityChange(){ if(document.hidden) appOpened = true; }
-      document.addEventListener('visibilitychange', onVisibilityChange);
-
-      try {
-        if(isMobile){
-          window.location.href = tgScheme;
-        } else {
-          const newWin = window.open(tgScheme, '_blank');
-          if(newWin){ try{ newWin.focus(); }catch(e){} }
-        }
-      } catch(e){}
-
-      const fallbackTimeout = setTimeout(function(){
-        if(!appOpened){
-          window.open(webLink, '_blank');
-        }
-        document.removeEventListener('visibilitychange', onVisibilityChange);
-      }, 800);
-
-      window.addEventListener('pagehide', function cleanup(){
-        clearTimeout(fallbackTimeout);
-        document.removeEventListener('visibilitychange', onVisibilityChange);
-        window.removeEventListener('pagehide', cleanup);
-      });
-    };
-  }
 });
 </script>
 
